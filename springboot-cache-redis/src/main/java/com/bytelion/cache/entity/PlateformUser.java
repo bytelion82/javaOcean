@@ -1,5 +1,7 @@
 package com.bytelion.cache.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,10 +20,12 @@ public class PlateformUser implements Serializable {
     /**
      * 创建时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     /**
      * 更新时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     /**
      * 名字
@@ -73,4 +77,14 @@ public class PlateformUser implements Serializable {
         this.isDeleted = isDeleted;
     }
 
+    @Override
+    public String toString() {
+        return "PlateformUser{" +
+                "id=" + id +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", userName='" + userName + '\'' +
+                ", isDeleted=" + isDeleted +
+                '}';
+    }
 }

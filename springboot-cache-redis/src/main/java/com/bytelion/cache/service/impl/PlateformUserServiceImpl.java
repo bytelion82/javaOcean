@@ -3,6 +3,9 @@ package com.bytelion.cache.service.impl;
 import com.bytelion.cache.dao.PlateformUserDao;
 import com.bytelion.cache.entity.PlateformUser;
 import com.bytelion.cache.service.PlateformUserService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,7 +29,9 @@ public class PlateformUserServiceImpl implements PlateformUserService {
      * @return 实例对象
      */
     @Override
+//    @Cacheable(value = "plateformUser",key = "#id")
     public PlateformUser queryById(Integer id) {
+        System.out.println("get---2");
         return this.plateformUserDao.queryById(id);
     }
 
@@ -49,8 +54,10 @@ public class PlateformUserServiceImpl implements PlateformUserService {
      * @return 实例对象
      */
     @Override
+//    @CachePut(value = "plateformUser",key = "#plateformUser.userName")
     public PlateformUser insert(PlateformUser plateformUser) {
         this.plateformUserDao.insert(plateformUser);
+        System.out.println("add---2");
         return plateformUser;
     }
 
@@ -73,7 +80,9 @@ public class PlateformUserServiceImpl implements PlateformUserService {
      * @return 是否成功
      */
     @Override
+//    @CacheEvict(value = "plateformUser",key = "#id")
     public boolean deleteById(Integer id) {
+        System.out.println("del---2");
         return this.plateformUserDao.deleteById(id) > 0;
     }
 }

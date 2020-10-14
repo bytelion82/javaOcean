@@ -1,6 +1,28 @@
 server:
   port: 7777
 spring:
+  redis:
+    ##redis 单机环境配置
+    host: 39.98.137.182
+    port: 6379
+    password:
+    database: 0
+    ssl: false
+  cache:
+    ##redis 集群环境配置
+    #cluster:
+    #  nodes: 127.0.0.1:7001,122.51.156.244:7002,127.0.0.1:7003
+    #  commandTimeout: 5000
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-idle: 8
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1
+    type: redis
+    redis:
+      #      缓存存活时间
+      time-to-live: 1000000ms
   datasource:
     url: jdbc:mysql://39.98.137.182/bytelion?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
     username: root

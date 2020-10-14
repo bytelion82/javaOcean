@@ -1,6 +1,9 @@
 package com.bytelion.cache.service;
 
 import com.bytelion.cache.entity.PlateformUser;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
@@ -14,10 +17,12 @@ public interface PlateformUserService {
 
     /**
      * 通过ID查询单条数据
-     *
+     *redis数据库中key=value::key
      * @param id 主键
      * @return 实例对象
+     * @desc @Cacheable 和CachePut 中的value、key 相同时，添加的数据，再查询时可以直接到redis中查到
      */
+    @Cacheable(value = "plateformUser",key = "#id")
     PlateformUser queryById(Integer id);
 
     /**
@@ -35,6 +40,7 @@ public interface PlateformUserService {
      * @param plateformUser 实例对象
      * @return 实例对象
      */
+    @CachePut(value = "plateformUser",key = "#plateformUser.id")
     PlateformUser insert(PlateformUser plateformUser);
 
     /**
@@ -47,10 +53,11 @@ public interface PlateformUserService {
 
     /**
      * 通过主键删除数据
-     *
+     *CacheEvict 会清除redis数据库中key=value::key的值，同时也会删掉MySQL中的值
      * @param id 主键
      * @return 是否成功
      */
+    @CacheEvict(value = "plateformUser",key = "#id")
     boolean deleteById(Integer id);
 
 }
