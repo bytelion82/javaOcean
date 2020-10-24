@@ -24,6 +24,7 @@ import java.util.Date;
 @Table(name = "byte_user")
 @ToString(callSuper = true)
 public class User extends AbstractAuditModel {
+    private static final long serialVersionUID = -6419022107193416994L;
     /**
      * 用户名
      */

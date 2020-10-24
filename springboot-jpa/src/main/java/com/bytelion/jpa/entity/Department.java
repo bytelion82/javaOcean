@@ -24,6 +24,7 @@ import java.util.Collection;
 @ToString(callSuper = true)
 public class Department extends AbstractAuditModel {
 
+    private static final long serialVersionUID = -6787621416664923401L;
     /**
      * 部门名字
      */
