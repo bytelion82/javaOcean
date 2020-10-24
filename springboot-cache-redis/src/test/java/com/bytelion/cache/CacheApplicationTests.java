@@ -1,13 +1,19 @@
 package com.bytelion.cache;
 
-import org.junit.jupiter.api.Test;
+import com.bytelion.cache.service.DeviceInfoService;
+import com.bytelion.cache.service.PlateformUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class CacheApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+    @Autowired
+    DeviceInfoService deviceInfoService;
+
+    @Autowired
+    PlateformUserService plateformUserService;
+
+
 
 }
