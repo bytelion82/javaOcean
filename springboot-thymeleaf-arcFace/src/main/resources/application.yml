@@ -16,6 +16,11 @@ mybatis:
 Arc:
   face:
     appId: HsP7ZNwUWUyiW5s6QAAoCXnoysHNz9YBRGUEHJqKGqgC
-    sdkKey: 8W1mzLwyHvbALUXPaKFBFAJMBfe4hm77rbHzjFnooqu2
-    libPath: /root/libs/LINUX64
+    sdkKey: 8W1mzLwyHvbALUXPaKFBFAJMKnDCqSrCbwGPQTQMuctb
+    libPath: F:\ArcSoft_ArcFace_Java_Windows_x64_V3.0\libs\WIN64
+    basePath: D:\\Users\\Faceimage
+#linux
+#    sdkKey: 8W1mzLwyHvbALUXPaKFBFAJMBfe4hm77rbHzjFnooqu2
+#    libPath: /root/test/libs/LINUX64
+#    basePath: /root/test/libs/LINUX64
 

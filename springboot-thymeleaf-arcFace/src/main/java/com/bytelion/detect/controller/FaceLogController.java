@@ -88,7 +88,6 @@ public class FaceLogController {
         List<FaceLog> logList = faceLogService.queryFaceLogByDay(tenantId, LocalDateTime.now().minusDays(start).minusHours(9),LocalDateTime.now().minusDays(end));
         ArrayList<FaceLog> faceLogs = faceEngineService.detectFaces(logList);
 
-
         model.addAttribute("faceLogList",faceLogs);
         return "message/list";
     }

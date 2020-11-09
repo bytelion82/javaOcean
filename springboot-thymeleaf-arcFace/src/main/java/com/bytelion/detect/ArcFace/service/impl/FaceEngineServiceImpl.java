@@ -1,5 +1,6 @@
 package com.bytelion.detect.ArcFace.service.impl;
 
+
 import com.arcsoft.face.*;
 import com.arcsoft.face.enums.DetectMode;
 import com.arcsoft.face.enums.DetectOrient;
@@ -39,6 +40,9 @@ public class FaceEngineServiceImpl implements FaceEngineService {
     private String sdkKey;
     @Value("${Arc.face.libPath}")
     private String libPath;
+
+    @Value("${Arc.face.basePath}")
+    private String basePath;
 
 
 
@@ -87,7 +91,7 @@ public class FaceEngineServiceImpl implements FaceEngineService {
         functionConfiguration.setSupportIRLiveness(true);
         engineConfiguration.setFunctionConfiguration(functionConfiguration);
 
-         pool= new GenericObjectPool<>(new FaceEngineFactory(appId,sdkKey,libPath,engineConfiguration), config);
+         pool= new GenericObjectPool(new FaceEngineFactory(appId,sdkKey,libPath,engineConfiguration), config);
     }
 
 
@@ -109,8 +113,8 @@ public class FaceEngineServiceImpl implements FaceEngineService {
             for (FaceLog faceLog : logList) {
 //                String picture="D:\\Users\\Faceimage\\cap"+faceLog.getUsername()+".jpg";
 //                String photo="D:\\Users\\Faceimage\\base"+faceLog.getUsername()+".jpg";
-                String picture="/root/libs/LINUX64/cap"+faceLog.getUsername()+".jpg";
-                String photo="/root/libs/LINUX64/base"+faceLog.getUsername()+".jpg";
+                String picture=basePath+ "\\cap"+faceLog.getUsername()+".jpg";
+                String photo=basePath+ "\\base"+faceLog.getUsername()+".jpg";
                 download(faceLog,picture,photo);
                 try {
                     //人脸检测
@@ -121,7 +125,7 @@ public class FaceEngineServiceImpl implements FaceEngineService {
                     FaceFeature faceFeature = new FaceFeature();
                     faceEngine.extractFaceFeature(imageInfo.getImageData(), imageInfo.getWidth(), imageInfo.getHeight(), imageInfo.getImageFormat(), faceInfoList.get(0), faceFeature);
 
-                    log.info("抓拍-----人脸检测：{}   ======   特征值大小：{}",faceInfoList,faceFeature.getFeatureData());
+                    log.info("抓拍-----人脸检测：{}   ======   特征值大小：{}",faceInfoList,faceFeature.getFeatureData().length);
 
                     faceLog.setGrabFatureData(faceInfoList.toString());
 
