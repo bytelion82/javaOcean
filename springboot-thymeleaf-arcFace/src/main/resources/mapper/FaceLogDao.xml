@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bytelion.detect.dao.FaceLogDao">
+
+    <resultMap type="com.bytelion.detect.entity.FaceLog" id="FaceLogMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="deviceId" column="device_id" jdbcType="INTEGER"/>
+        <result property="picture" column="picture" jdbcType="VARCHAR"/>
+        <result property="peopleId" column="people_id" jdbcType="INTEGER"/>
+        <result property="logTime" column="log_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+        <result property="number" column="number" jdbcType="VARCHAR"/>
+        <result property="photo" column="photo" jdbcType="VARCHAR"/>
+        <result property="id2" column="id2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+
+
+    <select id="queryFaceLogByDay" resultMap="FaceLogMap">
+        SELECT t1.id,t1.device_id,t1.tenant_id,t2.username ,t1.people_id,t1.picture,t1.log_time,t2.photo as photo,t2.number as number ,t2.id as id2,t1.create_time
+        FROM `face_log` t1
+		    LEFT JOIN face_info t2
+					on t2.tenant_id=t1.tenant_id and  t2.id=t1.people_id
+        WHERE t1.log_time &gt; #{param2} and t1.tenant_id=#{param1} and t1.log_time &lt; #{param3}
+        ORDER BY log_time
+
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="FaceLogMap">
+        select
+          id, device_id, picture, people_id, log_time, create_time, tenant_id
+        from face_platform.face_log
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="FaceLogMap">
+        select
+          id, device_id, picture, people_id, log_time, create_time, tenant_id
+        from face_platform.face_log
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="FaceLogMap">
+        select
+        id, device_id, picture, people_id, log_time, create_time, tenant_id
+        from face_platform.face_log
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="deviceId != null">
+                and device_id = #{deviceId}
+            </if>
+            <if test="picture != null and picture != ''">
+                and picture = #{picture}
+            </if>
+            <if test="peopleId != null">
+                and people_id = #{peopleId}
+            </if>
+            <if test="logTime != null">
+                and log_time = #{logTime}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="tenantId != null and tenantId != ''">
+                and tenant_id = #{tenantId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into face_platform.face_log(device_id, picture, people_id, log_time, create_time, tenant_id)
+        values (#{deviceId}, #{picture}, #{peopleId}, #{logTime}, #{createTime}, #{tenantId})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into face_platform.face_log(device_id, picture, people_id, log_time, create_time, tenant_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.deviceId}, #{entity.picture}, #{entity.peopleId}, #{entity.logTime}, #{entity.createTime},
+            #{entity.tenantId})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into face_platform.face_log(device_id, picture, people_id, log_time, create_time, tenant_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.deviceId}, #{entity.picture}, #{entity.peopleId}, #{entity.logTime}, #{entity.createTime},
+            #{entity.tenantId})
+        </foreach>
+        on duplicate key update
+        device_id = values(device_id) , picture = values(picture) , people_id = values(people_id) , log_time =
+        values(log_time) , create_time = values(create_time) , tenant_id = values(tenant_id)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update face_platform.face_log
+        <set>
+            <if test="deviceId != null">
+                device_id = #{deviceId},
+            </if>
+            <if test="picture != null and picture != ''">
+                picture = #{picture},
+            </if>
+            <if test="peopleId != null">
+                people_id = #{peopleId},
+            </if>
+            <if test="logTime != null">
+                log_time = #{logTime},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="tenantId != null and tenantId != ''">
+                tenant_id = #{tenantId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from face_platform.face_log where id = #{id}
+    </delete>
+
+</mapper>

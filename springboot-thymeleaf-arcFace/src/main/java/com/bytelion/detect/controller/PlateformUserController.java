@@ -1,15 +1,10 @@
-package com.bytelion.mysql.controller;
+package com.bytelion.detect.controller;
 
-import com.bytelion.mysql.entity.Messages;
-import com.bytelion.mysql.entity.PlateformUser;
-import com.bytelion.mysql.service.PlateformUserService;
+import com.bytelion.detect.entity.Messages;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 
 /**
@@ -20,24 +15,9 @@ import java.util.Arrays;
  */
 @Controller
 public class PlateformUserController {
-    /**
-     * 服务对象
-     */
-    @Resource
-    private PlateformUserService plateformUserService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("/selectOne")
-    @ResponseBody
-    public PlateformUser selectOne(Integer id) {
-        System.out.println("su");
-        return this.plateformUserService.queryById(id);
-    }
+
+
 
 
     /**
