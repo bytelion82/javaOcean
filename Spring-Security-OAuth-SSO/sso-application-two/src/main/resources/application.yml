@@ -1,0 +1,19 @@
+
+security:
+  oauth2:
+    client:
+#      指定id和密码
+      client-id: app-b
+      client-secret: app-b-1234
+#      指定为认证服务器的/oauth/authorize地址
+      user-authorization-uri: http://127.0.0.1:8080/server/oauth/authorize
+#      指定为认证服务器的/oauth/token地址
+      access-token-uri: http://127.0.0.1:8080/server/oauth/token
+    resource:
+      jwt:
+#        指定为认证服务器的/oauth/token_key地址
+        key-uri: http://127.0.0.1:8080/server/oauth/token_key
+server:
+  port: 9091
+  servlet:
+    context-path: /app2
