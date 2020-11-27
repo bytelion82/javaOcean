@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://39.98.137.182/ocean?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
-    username: root
+    username: Lazylion
     password: Lazylion0802.
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
